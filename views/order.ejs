@@ -1,5 +1,29 @@
 <%- include("partials/header") %>
+<%
+  const emailAddress = "dj.stilman@mail.ru";
 
+  const emailSubject = selectedItem
+    ? `Заявка на заказ: ${selectedItem}`
+    : "Заявка на полиграфическую продукцию";
+
+  const emailBody = [
+    "Здравствуйте!",
+    "",
+    "Хочу оформить заказ.",
+    "",
+    `Продукция: ${selectedItem || ""}`,
+    "Количество:",
+    "Размер:",
+    "Материал:",
+    "Желаемый срок:",
+    "Дополнительная информация:"
+  ].join("\n");
+
+  const emailLink =
+    `mailto:${emailAddress}` +
+    `?subject=${encodeURIComponent(emailSubject)}` +
+    `&body=${encodeURIComponent(emailBody)}`;
+%>
 <section class="order-hero">
   <div class="container">
 
@@ -79,26 +103,11 @@
         </p>
 
         <a
-          href="mailto:dj.stilman@mail.ru?subject=<%= encodeURIComponent(
-            selectedItem
-              ? `Заявка на заказ: ${selectedItem}`
-              : 'Заявка на полиграфическую продукцию'
-          ) %>&body=<%= encodeURIComponent(
-            `Здравствуйте!`
-
-Хочу оформить заказ.
-
-Продукция: ${selectedItem || ''}
-Количество:
-Размер:
-Материал:
-Желаемый срок:
-Дополнительная информация:`
-          ) %>"
-          class="order-contact-card__button order-contact-card__button--email"
-        >
-          Написать на email
-        </a>
+  href="<%= emailLink %>"
+  class="order-contact-card__button order-contact-card__button--email"
+>
+  Написать на email
+</a>
 
       </article>
 

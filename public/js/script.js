@@ -301,7 +301,6 @@ if (orderMessage) {
 updateCustomSizeVisibility();
 updateOrderSummary();
 
-
 const menuButton = document.querySelector(
   "[data-menu-button]"
 );
