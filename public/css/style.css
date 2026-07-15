@@ -37,7 +37,7 @@ img {
   border-bottom: 1px solid #e8e8e8;
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 1200;
 }
 
 .header__container {
@@ -1912,7 +1912,7 @@ img {
 .mobile-menu-overlay {
   position: fixed;
   inset: 0;
-  z-index: 1090;
+  z-index: 1100;
   display: none;
   background: rgba(18, 21, 27, 0.25);
 }
@@ -1946,7 +1946,7 @@ body.menu-open {
     position: fixed;
     top: 0;
     right: 0;
-    z-index: 1200;
+    z-index: 1300;
 
     width: min(340px, 86%);
     height: 100vh;
