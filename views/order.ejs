@@ -1,0 +1,844 @@
+<%- include("partials/header") %>
+
+<section class="order-hero">
+  <div class="container">
+
+    <p class="section-label">
+      Оформление заказа
+    </p>
+
+    <h1>
+      Расскажите, что нужно изготовить
+    </h1>
+
+    <p class="order-hero__description">
+      Заполните информацию о продукции, количестве,
+      размере и желаемых сроках. После получения заявки
+      мы рассчитаем стоимость и свяжемся с вами.
+    </p>
+
+  </div>
+</section>
+
+<section class="order-section">
+  <div class="container order-section__container">
+
+    <div class="order-form-wrapper">
+
+      <% if (success) { %>
+
+        <div class="order-success">
+
+          <div class="order-success__icon">
+            ✓
+          </div>
+
+          <h2>Заявка успешно отправлена</h2>
+
+          <% if (orderNumber) { %>
+            <p>
+              Номер вашей заявки:
+            </p>
+
+            <strong>
+              <%= orderNumber %>
+            </strong>
+          <% } %>
+
+          <p>
+            Мы проверим информацию, рассчитаем стоимость
+            и свяжемся с вами для подтверждения заказа.
+          </p>
+
+          <a
+            href="/order"
+            class="button button--primary"
+          >
+            Создать новую заявку
+          </a>
+
+        </div>
+
+      <% } else { %>
+
+        <% if (error) { %>
+
+          <div class="order-alert order-alert--error">
+            <strong>
+              Не удалось отправить заявку
+            </strong>
+
+            <p><%= error %></p>
+          </div>
+
+        <% } %>
+
+        <form
+          class="order-form"
+          action="/order"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+
+          <fieldset class="order-form__group">
+
+            <legend>
+              <span>01</span>
+              Контактная информация
+            </legend>
+
+            <div class="order-form__row">
+
+              <div class="order-form__field">
+                <label for="order-name">
+                  Ваше имя *
+                </label>
+
+                <input
+                  id="order-name"
+                  type="text"
+                  name="name"
+                  value="<%= formData.name || '' %>"
+                  placeholder="Например, Никита"
+                  maxlength="100"
+                  required
+                >
+              </div>
+
+              <div class="order-form__field">
+                <label for="order-company">
+                  Компания
+                </label>
+
+                <input
+                  id="order-company"
+                  type="text"
+                  name="company"
+                  value="<%= formData.company || '' %>"
+                  placeholder="Название компании"
+                  maxlength="150"
+                >
+              </div>
+
+            </div>
+
+            <div class="order-form__row">
+
+              <div class="order-form__field">
+                <label for="order-email">
+                  Email *
+                </label>
+
+                <input
+                  id="order-email"
+                  type="email"
+                  name="email"
+                  value="<%= formData.email || '' %>"
+                  placeholder="example@email.com"
+                  maxlength="150"
+                  required
+                >
+              </div>
+
+              <div class="order-form__field">
+                <label for="order-phone">
+                  Номер телефона *
+                </label>
+
+                <input
+                  id="order-phone"
+                  type="tel"
+                  name="phone"
+                  value="<%= formData.phone || '' %>"
+                  placeholder="+998 (99) 999-99-99"
+                  maxlength="30"
+                  required
+                >
+              </div>
+
+            </div>
+
+          </fieldset>
+
+          <fieldset class="order-form__group">
+
+            <legend>
+              <span>02</span>
+              Информация о заказе
+            </legend>
+
+            <div class="order-form__row">
+
+              <div class="order-form__field">
+                <label for="order-category">
+                  Тип заказа
+                </label>
+
+                <select
+                  id="order-category"
+                  name="orderCategory"
+                >
+                  <option value="">
+                    Выберите тип
+                  </option>
+
+                  <option
+                    value="product"
+                    <%= formData.orderCategory === "product"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Полиграфическая продукция
+                  </option>
+
+                  <option
+                    value="service"
+                    <%= formData.orderCategory === "service"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Услуга
+                  </option>
+
+                  <option
+                    value="similar-project"
+                    <%= formData.orderCategory === "similar-project"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Проект как в портфолио
+                  </option>
+
+                  <option
+                    value="other"
+                    <%= formData.orderCategory === "other"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Другое
+                  </option>
+                </select>
+              </div>
+
+              <div class="order-form__field">
+                <label for="order-item">
+                  Что нужно изготовить? *
+                </label>
+
+                <input
+                  id="order-item"
+                  type="text"
+                  name="orderItem"
+                  value="<%= formData.orderItem || '' %>"
+                  placeholder="Например, визитки"
+                  maxlength="200"
+                  required
+                >
+              </div>
+
+            </div>
+
+            <div class="order-form__row">
+
+              <div class="order-form__field">
+                <label for="order-quantity">
+                  Количество *
+                </label>
+
+                <input
+                  id="order-quantity"
+                  type="number"
+                  name="quantity"
+                  value="<%= formData.quantity || '' %>"
+                  placeholder="Например, 100"
+                  min="1"
+                  max="1000000"
+                  required
+                >
+              </div>
+
+              <div class="order-form__field">
+                <label for="order-size">
+                  Размер
+                </label>
+
+                <select
+                  id="order-size"
+                  name="size"
+                  data-order-size
+                >
+                  <option value="">
+                    Выберите размер
+                  </option>
+
+                  <option
+                    value="A3"
+                    <%= formData.size === "A3"
+                      ? "selected"
+                      : "" %>
+                  >
+                    A3 — 297 × 420 мм
+                  </option>
+
+                  <option
+                    value="A4"
+                    <%= formData.size === "A4"
+                      ? "selected"
+                      : "" %>
+                  >
+                    A4 — 210 × 297 мм
+                  </option>
+
+                  <option
+                    value="A5"
+                    <%= formData.size === "A5"
+                      ? "selected"
+                      : "" %>
+                  >
+                    A5 — 148 × 210 мм
+                  </option>
+
+                  <option
+                    value="90x50"
+                    <%= formData.size === "90x50"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Визитка — 90 × 50 мм
+                  </option>
+
+                  <option
+                    value="custom"
+                    <%= formData.size === "custom"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Другой размер
+                  </option>
+                </select>
+              </div>
+
+            </div>
+
+            <div
+              class="order-form__field order-custom-size"
+              data-custom-size
+            >
+              <label for="order-custom-size">
+                Укажите размер
+              </label>
+
+              <input
+                id="order-custom-size"
+                type="text"
+                name="customSize"
+                value="<%= formData.customSize || '' %>"
+                placeholder="Например, 100 × 150 мм"
+                maxlength="100"
+              >
+            </div>
+
+          </fieldset>
+
+          <fieldset class="order-form__group">
+
+            <legend>
+              <span>03</span>
+              Печать и обработка
+            </legend>
+
+            <div class="order-form__row">
+
+              <div class="order-form__field">
+                <label for="order-material">
+                  Материал
+                </label>
+
+                <select
+                  id="order-material"
+                  name="material"
+                >
+                  <option value="">
+                    Нужна консультация
+                  </option>
+
+                  <option
+                    value="Обычная бумага"
+                    <%= formData.material === "Обычная бумага"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Обычная бумага
+                  </option>
+
+                  <option
+                    value="Плотная бумага"
+                    <%= formData.material === "Плотная бумага"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Плотная бумага
+                  </option>
+
+                  <option
+                    value="Крафтовая бумага"
+                    <%= formData.material === "Крафтовая бумага"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Крафтовая бумага
+                  </option>
+
+                  <option
+                    value="Самоклеящаяся бумага"
+                    <%= formData.material === "Самоклеящаяся бумага"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Самоклеящаяся бумага
+                  </option>
+
+                  <option
+                    value="Винил"
+                    <%= formData.material === "Винил"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Винил
+                  </option>
+
+                  <option
+                    value="Пластик"
+                    <%= formData.material === "Пластик"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Пластик
+                  </option>
+
+                  <option
+                    value="Другое"
+                    <%= formData.material === "Другое"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Другое
+                  </option>
+                </select>
+              </div>
+
+              <div class="order-form__field">
+                <label for="order-sides">
+                  Стороны печати
+                </label>
+
+                <select
+                  id="order-sides"
+                  name="printSides"
+                >
+                  <option value="">
+                    Выберите вариант
+                  </option>
+
+                  <option
+                    value="Односторонняя"
+                    <%= formData.printSides === "Односторонняя"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Односторонняя
+                  </option>
+
+                  <option
+                    value="Двусторонняя"
+                    <%= formData.printSides === "Двусторонняя"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Двусторонняя
+                  </option>
+
+                  <option
+                    value="Не применимо"
+                    <%= formData.printSides === "Не применимо"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Не применимо
+                  </option>
+                </select>
+              </div>
+
+            </div>
+
+            <div class="order-form__field">
+              <label for="order-finishing">
+                Дополнительная обработка
+              </label>
+
+              <select
+                id="order-finishing"
+                name="finishing"
+              >
+                <option value="">
+                  Без дополнительной обработки
+                </option>
+
+                <option
+                  value="Матовая ламинация"
+                  <%= formData.finishing === "Матовая ламинация"
+                    ? "selected"
+                    : "" %>
+                >
+                  Матовая ламинация
+                </option>
+
+                <option
+                  value="Глянцевая ламинация"
+                  <%= formData.finishing === "Глянцевая ламинация"
+                    ? "selected"
+                    : "" %>
+                >
+                  Глянцевая ламинация
+                </option>
+
+                <option
+                  value="Скругление углов"
+                  <%= formData.finishing === "Скругление углов"
+                    ? "selected"
+                    : "" %>
+                >
+                  Скругление углов
+                </option>
+
+                <option
+                  value="Резка и вырубка"
+                  <%= formData.finishing === "Резка и вырубка"
+                    ? "selected"
+                    : "" %>
+                >
+                  Резка и вырубка
+                </option>
+
+                <option
+                  value="Переплёт"
+                  <%= formData.finishing === "Переплёт"
+                    ? "selected"
+                    : "" %>
+                >
+                  Переплёт
+                </option>
+
+                <option
+                  value="Другое"
+                  <%= formData.finishing === "Другое"
+                    ? "selected"
+                    : "" %>
+                >
+                  Другое
+                </option>
+              </select>
+            </div>
+
+          </fieldset>
+
+          <fieldset class="order-form__group">
+
+            <legend>
+              <span>04</span>
+              Дизайн и макет
+            </legend>
+
+            <div class="order-form__field">
+              <label for="order-design">
+                Есть ли у вас готовый дизайн?
+              </label>
+
+              <select
+                id="order-design"
+                name="designOption"
+              >
+                <option value="">
+                  Выберите вариант
+                </option>
+
+                <option
+                  value="Есть готовый макет"
+                  <%= formData.designOption === "Есть готовый макет"
+                    ? "selected"
+                    : "" %>
+                >
+                  Есть готовый макет
+                </option>
+
+                <option
+                  value="Нужно проверить макет"
+                  <%= formData.designOption === "Нужно проверить макет"
+                    ? "selected"
+                    : "" %>
+                >
+                  Нужно проверить готовый макет
+                </option>
+
+                <option
+                  value="Нужно создать дизайн"
+                  <%= formData.designOption === "Нужно создать дизайн"
+                    ? "selected"
+                    : "" %>
+                >
+                  Нужно создать дизайн
+                </option>
+
+                <option
+                  value="Нужна консультация"
+                  <%= formData.designOption === "Нужна консультация"
+                    ? "selected"
+                    : "" %>
+                >
+                  Нужна консультация
+                </option>
+              </select>
+            </div>
+
+            <div class="order-form__field">
+              <label for="order-file">
+                Загрузить макет
+              </label>
+
+              <label
+                for="order-file"
+                class="order-file-upload"
+              >
+                <span class="order-file-upload__icon">
+                  ↑
+                </span>
+
+                <strong>
+                  Выберите файл
+                </strong>
+
+                <small data-order-file-name>
+                  PDF, PNG, JPG, SVG, AI, EPS, PSD или ZIP.
+                  Максимум 20 МБ.
+                </small>
+              </label>
+
+              <input
+                id="order-file"
+                class="order-file-input"
+                type="file"
+                name="designFile"
+                accept=".pdf,.png,.jpg,.jpeg,.svg,.ai,.eps,.psd,.zip"
+                data-order-file
+              >
+            </div>
+
+          </fieldset>
+
+          <fieldset class="order-form__group">
+
+            <legend>
+              <span>05</span>
+              Срок и получение
+            </legend>
+
+            <div class="order-form__row">
+
+              <div class="order-form__field">
+                <label for="order-deadline">
+                  Желаемый срок
+                </label>
+
+                <input
+                  id="order-deadline"
+                  type="date"
+                  name="deadline"
+                  value="<%= formData.deadline || '' %>"
+                  data-order-deadline
+                >
+              </div>
+
+              <div class="order-form__field">
+                <label for="order-delivery">
+                  Способ получения
+                </label>
+
+                <select
+                  id="order-delivery"
+                  name="delivery"
+                >
+                  <option value="">
+                    Выберите вариант
+                  </option>
+
+                  <option
+                    value="Самовывоз"
+                    <%= formData.delivery === "Самовывоз"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Самовывоз
+                  </option>
+
+                  <option
+                    value="Доставка"
+                    <%= formData.delivery === "Доставка"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Доставка
+                  </option>
+
+                  <option
+                    value="Обсудить позже"
+                    <%= formData.delivery === "Обсудить позже"
+                      ? "selected"
+                      : "" %>
+                  >
+                    Обсудить позже
+                  </option>
+                </select>
+              </div>
+
+            </div>
+
+            <div class="order-form__field">
+              <div class="order-form__label-row">
+
+                <label for="order-message">
+                  Дополнительная информация
+                </label>
+
+                <span data-order-message-counter>
+                  0 / 1500
+                </span>
+
+              </div>
+
+              <textarea
+                id="order-message"
+                name="message"
+                rows="7"
+                maxlength="1500"
+                placeholder="Опишите цвета, форму, пожелания к дизайну, упаковке или доставке..."
+              ><%= formData.message || '' %></textarea>
+            </div>
+
+          </fieldset>
+
+          <label class="order-form__agreement">
+
+            <input
+              type="checkbox"
+              name="agreement"
+              required
+            >
+
+            <span>
+              Я подтверждаю правильность указанной информации
+              и согласен на её обработку.
+            </span>
+
+          </label>
+
+          <button
+            class="order-form__submit"
+            type="submit"
+          >
+            Отправить заявку на расчёт
+          </button>
+
+          <p class="order-form__note">
+            Отправка формы не является оплатой.
+            Стоимость подтверждается после проверки заявки.
+          </p>
+
+        </form>
+
+      <% } %>
+
+    </div>
+
+    <aside class="order-sidebar">
+
+      <div class="order-sidebar__card">
+
+        <p class="section-label">
+          Ваша заявка
+        </p>
+
+        <h2>
+          Предварительная информация
+        </h2>
+
+        <dl class="order-summary">
+
+          <div>
+            <dt>Продукция</dt>
+            <dd data-summary-item>
+              Не выбрана
+            </dd>
+          </div>
+
+          <div>
+            <dt>Количество</dt>
+            <dd data-summary-quantity>
+              Не указано
+            </dd>
+          </div>
+
+          <div>
+            <dt>Размер</dt>
+            <dd data-summary-size>
+              Не указан
+            </dd>
+          </div>
+
+          <div>
+            <dt>Срок</dt>
+            <dd data-summary-deadline>
+              Не указан
+            </dd>
+          </div>
+
+        </dl>
+
+        <p class="order-sidebar__notice">
+          Окончательная стоимость зависит от материала,
+          тиража, способа печати, обработки и сложности макета.
+        </p>
+
+      </div>
+
+      <div class="order-sidebar__card">
+
+        <h3>
+          Что произойдёт после отправки?
+        </h3>
+
+        <ol class="order-next-steps">
+          <li>
+            Мы проверим заполненную информацию.
+          </li>
+
+          <li>
+            Уточним детали заказа при необходимости.
+          </li>
+
+          <li>
+            Рассчитаем стоимость и сроки.
+          </li>
+
+          <li>
+            Свяжемся с вами для подтверждения.
+          </li>
+        </ol>
+
+      </div>
+
+    </aside>
+
+  </div>
+</section>
+
+<%- include("partials/footer") %>

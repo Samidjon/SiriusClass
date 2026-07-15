@@ -1,0 +1,397 @@
+<%- include("partials/header") %>
+
+<section class="contacts-hero">
+  <div class="container">
+
+    <p class="section-label">
+      Свяжитесь с нами
+    </p>
+
+    <h1>
+      Обсудим ваш заказ и поможем подобрать решение
+    </h1>
+
+    <p class="contacts-hero__description">
+      Расскажите, какую продукцию вы хотите заказать.
+      Мы уточним детали, рассчитаем стоимость и сроки
+      изготовления.
+    </p>
+
+  </div>
+</section>
+
+<section class="contacts-information">
+  <div class="container">
+
+    <div class="contacts-information__grid">
+
+      <article class="contact-information-card">
+        <span class="contact-information-card__icon">
+          ☎
+        </span>
+
+        <h2>Телефон</h2>
+
+        <p>
+          Позвоните нам для быстрого обсуждения заказа.
+        </p>
+
+        <a href="tel:+998 98 123 16 66">
+          +998 98 123 16 66
+        </a>
+      </article>
+
+      <article class="contact-information-card">
+        <span class="contact-information-card__icon">
+          ✉
+        </span>
+
+        <h2>Email</h2>
+
+        <p>
+          Отправьте макет, техническое задание или вопрос.
+        </p>
+
+        <a href="mailto:info@printmaster.com">
+          dj.stilman@mail.ru
+        </a>
+      </article>
+
+      <article class="contact-information-card">
+        <span class="contact-information-card__icon">
+          ◉
+        </span>
+
+        <h2>Адрес</h2>
+
+        <p>
+          Здесь можно получить готовый заказ.
+        </p>
+
+        <address>
+          Furqat ko'chasisi 14, 100066, Tashkent, Uzbekistan
+        </address>
+      </article>
+
+      <article class="contact-information-card">
+        <span class="contact-information-card__icon">
+          ◷
+        </span>
+
+        <h2>График работы</h2>
+
+        <p>
+          Понедельник — суббота
+        </p>
+
+        <strong>
+          09:00–18:00
+        </strong>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="contact-form-section">
+  <div class="container contact-form-section__container">
+
+    <div class="contact-form-section__content">
+
+      <p class="section-label">
+        Отправить заявку
+      </p>
+
+      <h2>
+        Расскажите о вашем проекте
+      </h2>
+
+      <p>
+        Укажите тип продукции, примерное количество,
+        размеры и желаемый срок изготовления. Чем больше
+        информации вы предоставите, тем точнее будет расчёт.
+      </p>
+
+      <div class="contact-messengers">
+
+        <a
+          href="https://web.telegram.org/@Idealcopycolor"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="contact-messenger contact-messenger--whatsapp"
+        >
+          Написать в Telegram @Idealcopycolor
+        </a>
+
+        <a
+          href="tel:+998 98 123 16 66"
+          class="contact-messenger"
+        >
+          Позвонить нам
+        </a>
+
+      </div>
+
+    </div>
+
+    <div class="contact-form-wrapper">
+
+      <% if (success) { %>
+        <div class="contact-alert contact-alert--success">
+          <strong>Сообщение отправлено!</strong>
+
+          <p>
+            Спасибо за обращение. Мы свяжемся с вами
+            в ближайшее время.
+          </p>
+        </div>
+      <% } %>
+
+      <% if (error) { %>
+        <div class="contact-alert contact-alert--error">
+          <strong>Не удалось отправить форму</strong>
+          <p><%= error %></p>
+        </div>
+      <% } %>
+
+      <form
+        class="contact-form"
+        action="/contacts"
+        method="POST"
+      >
+
+        <div class="contact-form__row">
+
+          <div class="contact-form__field">
+            <label for="contact-name">
+              Ваше имя *
+            </label>
+
+            <input
+              id="contact-name"
+              type="text"
+              name="name"
+              value="<%= formData.name || '' %>"
+              placeholder="Например, Никита"
+              maxlength="100"
+              required
+            >
+          </div>
+
+          <div class="contact-form__field">
+            <label for="contact-phone">
+              Номер телефона
+            </label>
+
+            <input
+              id="contact-phone"
+              type="tel"
+              name="phone"
+              value="<%= formData.phone || '' %>"
+              placeholder="+998 99 123 45 67"
+              maxlength="30"
+            >
+          </div>
+
+        </div>
+
+        <div class="contact-form__field">
+          <label for="contact-email">
+            Email *
+          </label>
+
+          <input
+            id="contact-email"
+            type="email"
+            name="email"
+            value="<%= formData.email || '' %>"
+            placeholder="example@email.com"
+            maxlength="150"
+            required
+          >
+        </div>
+
+        <div class="contact-form__field">
+          <label for="contact-subject">
+            Тема обращения
+          </label>
+
+          <select
+            id="contact-subject"
+            name="subject"
+          >
+            <option value="">
+              Выберите тему
+            </option>
+
+            <option
+              value="Расчёт стоимости"
+              <%= formData.subject === "Расчёт стоимости"
+                ? "selected"
+                : "" %>
+            >
+              Расчёт стоимости
+            </option>
+
+            <option
+              value="Оформление заказа"
+              <%= formData.subject === "Оформление заказа"
+                ? "selected"
+                : "" %>
+            >
+              Оформление заказа
+            </option>
+
+            <option
+              value="Дизайн макета"
+              <%= formData.subject === "Дизайн макета"
+                ? "selected"
+                : "" %>
+            >
+              Дизайн макета
+            </option>
+
+            <option
+              value="Статус заказа"
+              <%= formData.subject === "Статус заказа"
+                ? "selected"
+                : "" %>
+            >
+              Статус существующего заказа
+            </option>
+
+            <option
+              value="Сотрудничество"
+              <%= formData.subject === "Сотрудничество"
+                ? "selected"
+                : "" %>
+            >
+              Сотрудничество
+            </option>
+
+            <option
+              value="Другое"
+              <%= formData.subject === "Другое"
+                ? "selected"
+                : "" %>
+            >
+              Другое
+            </option>
+          </select>
+        </div>
+
+        <div class="contact-form__field">
+          <div class="contact-form__label-row">
+
+            <label for="contact-message">
+              Сообщение *
+            </label>
+
+            <span data-message-counter>
+              0 / 1000
+            </span>
+
+          </div>
+
+          <textarea
+            id="contact-message"
+            name="message"
+            rows="7"
+            maxlength="1000"
+            placeholder="Напишите, что нужно изготовить, укажите количество, размер и другие пожелания..."
+            required
+          ><%= formData.message || '' %></textarea>
+        </div>
+
+        <label class="contact-form__agreement">
+          <input
+            type="checkbox"
+            name="agreement"
+            required
+          >
+
+          <span>
+            Я согласен на обработку информации,
+            указанной в форме.
+          </span>
+        </label>
+
+        <button
+          class="contact-form__submit"
+          type="submit"
+        >
+          Отправить сообщение
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="contacts-faq">
+  <div class="container">
+
+    <div class="section-heading">
+      <p>Частые вопросы</p>
+
+      <h2>
+        Полезная информация перед оформлением заказа
+      </h2>
+    </div>
+
+    <div class="contacts-faq__grid">
+
+      <article>
+        <h3>
+          Можно ли заказать небольшой тираж?
+        </h3>
+
+        <p>
+          Да, для цифровой печати доступны небольшие
+          тиражи. Минимальное количество зависит от
+          выбранной продукции.
+        </p>
+      </article>
+
+      <article>
+        <h3>
+          Можно ли отправить свой макет?
+        </h3>
+
+        <p>
+          Да. Перед печатью мы проверим размер,
+          разрешение, цветовой режим и качество файла.
+        </p>
+      </article>
+
+      <article>
+        <h3>
+          Сколько времени занимает изготовление?
+        </h3>
+
+        <p>
+          Срок зависит от продукции, тиража и обработки.
+          Точное время сообщается после обсуждения заказа.
+        </p>
+      </article>
+
+      <article>
+        <h3>
+          Можно ли заказать разработку дизайна?
+        </h3>
+
+        <p>
+          Да. Мы можем изменить существующий макет
+          или создать новый дизайн с нуля.
+        </p>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+<%- include("partials/footer") %>

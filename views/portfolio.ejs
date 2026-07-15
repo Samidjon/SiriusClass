@@ -1,0 +1,184 @@
+<%- include("partials/header") %>
+
+<section class="portfolio-hero">
+  <div class="container">
+
+    <p class="section-label">Наши работы</p>
+
+    <h1>
+      Проекты, которые мы реализовали для наших клиентов
+    </h1>
+
+    <p class="portfolio-hero__description">
+      Посмотрите примеры печатной, сувенирной и рекламной
+      продукции, изготовленной нашей командой.
+    </p>
+
+  </div>
+</section>
+
+<section class="portfolio-section">
+  <div class="container">
+
+    <div class="portfolio-filters">
+
+      <button
+        class="portfolio-filter is-active"
+        type="button"
+        data-portfolio-filter="all"
+      >
+        Все работы
+      </button>
+
+      <button
+        class="portfolio-filter"
+        type="button"
+        data-portfolio-filter="printing"
+      >
+        Полиграфия
+      </button>
+
+      <button
+        class="portfolio-filter"
+        type="button"
+        data-portfolio-filter="packaging"
+      >
+        Упаковка
+      </button>
+
+      <button
+        class="portfolio-filter"
+        type="button"
+        data-portfolio-filter="souvenirs"
+      >
+        Сувениры
+      </button>
+
+      <button
+        class="portfolio-filter"
+        type="button"
+        data-portfolio-filter="branding"
+      >
+        Брендинг
+      </button>
+
+    </div>
+
+    <div class="portfolio-grid">
+
+      <% projects.forEach(project => { %>
+
+        <article
+          class="portfolio-card"
+          data-portfolio-category="<%= project.category %>"
+        >
+
+          <div class="portfolio-card__image">
+
+            <img
+              src="<%= project.image %>"
+              alt="<%= project.title %>"
+              loading="lazy"
+              onerror="
+                this.style.display='none';
+                this.nextElementSibling.style.display='flex';
+              "
+            >
+
+            <div class="portfolio-card__placeholder">
+              <span>Добавьте фотографию проекта</span>
+              <small><%= project.image %></small>
+            </div>
+
+            <span class="portfolio-card__category">
+              <%= project.categoryName %>
+            </span>
+
+          </div>
+
+          <div class="portfolio-card__content">
+
+            <h2><%= project.title %></h2>
+
+            <p class="portfolio-card__description">
+              <%= project.description %>
+            </p>
+
+            <ul class="portfolio-card__details">
+
+              <% project.details.forEach(detail => { %>
+                <li><%= detail %></li>
+              <% }) %>
+
+            </ul>
+
+            <a
+              href="/order?project=<%= encodeURIComponent(project.title) %>"
+              class="portfolio-card__button"
+            >
+              Заказать похожий проект
+            </a>
+
+          </div>
+
+        </article>
+
+      <% }) %>
+
+    </div>
+
+    <p class="portfolio-empty" data-portfolio-empty>
+      В этой категории пока нет проектов.
+    </p>
+
+  </div>
+</section>
+
+<section class="portfolio-statistics">
+  <div class="container portfolio-statistics__grid">
+
+    <article>
+      <strong>250+</strong>
+      <span>выполненных заказов</span>
+    </article>
+
+    <article>
+      <strong>100+</strong>
+      <span>постоянных клиентов</span>
+    </article>
+
+    <article>
+      <strong>9</strong>
+      <span>видов продукции</span>
+    </article>
+
+    <article>
+      <strong>5+</strong>
+      <span>лет опыта</span>
+    </article>
+
+  </div>
+</section>
+
+<section class="portfolio-order">
+  <div class="container portfolio-order__container">
+
+    <div>
+      <p class="section-label">Ваш проект может быть следующим</p>
+
+      <h2>Расскажите нам о своей идее</h2>
+
+      <p>
+        Мы поможем подобрать материал, способ печати,
+        размер и оптимальный тираж.
+      </p>
+    </div>
+
+    <a href="/order" class="button button--primary">
+      Обсудить проект
+    </a>
+
+  </div>
+</section>
+
+<%- include("partials/footer") %>

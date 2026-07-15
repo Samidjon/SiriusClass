@@ -1,0 +1,119 @@
+<%- include("partials/header") %>
+
+<section class="products-hero">
+  <div class="container">
+    <p class="section-label">Каталог продукции</p>
+
+    <h1>Полиграфическая и сувенирная продукция</h1>
+
+    <p class="products-hero__description">
+      Мы изготавливаем печатную, рекламную и сувенирную продукцию
+      для компаний, мероприятий и частных заказов.
+    </p>
+  </div>
+</section>
+
+<section class="products-section">
+  <div class="container">
+
+    <div class="products-grid">
+
+      <% products.forEach(product => { %>
+
+        <article class="product-card">
+
+          <div class="product-card__image">
+
+            <img
+              src="<%= product.image %>"
+              alt="<%= product.name %>"
+              loading="lazy"
+              onerror="
+                this.style.display='none';
+                this.nextElementSibling.style.display='flex';
+              "
+            >
+
+            <div class="product-card__placeholder">
+              <span>Добавьте фотографию</span>
+              <small><%= product.image %></small>
+            </div>
+
+          </div>
+
+          <div class="product-card__content">
+
+            <p class="product-card__category">
+              <%= product.category %>
+            </p>
+
+            <h2><%= product.name %></h2>
+
+            <p class="product-card__description">
+              <%= product.shortDescription %>
+            </p>
+
+            <ul class="product-card__features">
+
+              <% product.features.forEach(feature => { %>
+                <li><%= feature %></li>
+              <% }) %>
+
+            </ul>
+
+            <div class="product-card__actions">
+
+              <button
+                class="product-card__details"
+                type="button"
+                data-product-button
+              >
+                Подробнее
+              </button>
+
+              <a
+                href="/order?product=<%= encodeURIComponent(product.name) %>"
+                class="product-card__order"
+              >
+                Заказать
+              </a>
+
+            </div>
+
+            <div class="product-card__full-description">
+              <p><%= product.description %></p>
+            </div>
+
+          </div>
+
+        </article>
+
+      <% }) %>
+
+    </div>
+
+  </div>
+</section>
+
+<section class="products-contact">
+  <div class="container products-contact__container">
+
+    <div>
+      <p class="section-label">Не нашли нужную продукцию?</p>
+
+      <h2>Отправьте нам описание вашего заказа</h2>
+
+      <p>
+        Мы поможем подобрать материал, размер, способ печати
+        и подготовить макет.
+      </p>
+    </div>
+
+    <a href="/contacts" class="button button--primary">
+      Связаться с нами
+    </a>
+
+  </div>
+</section>
+
+<%- include("partials/footer") %>
