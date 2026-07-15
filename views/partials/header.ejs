@@ -1,25 +1,3 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <meta
-    name="description"
-    content="Полиграфические услуги, печать визиток, баннеров, буклетов и сувенирной продукции"
-  >
-
-  <title><%= title %> | Sirius Class</title>
-
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-
-<body>
-
 <header class="header">
   <div class="container header__container">
 
@@ -27,20 +5,47 @@
       Sirius<span>Class</span>
     </a>
 
-    <nav class="navigation">
+    <nav
+      class="navigation"
+      id="main-navigation"
+      data-navigation
+    >
       <a href="/">Главная</a>
       <a href="/services">Услуги</a>
       <a href="/products">Продукция</a>
       <a href="/portfolio">Портфолио</a>
       <a href="/about">О компании</a>
       <a href="/contacts">Контакты</a>
+
+      <a
+        href="/order"
+        class="navigation__order"
+      >
+        Рассчитать заказ
+      </a>
     </nav>
 
-    <a href="/contacts" class="header__button">
+    <a href="/order" class="header__button">
       Оформить заказ
     </a>
+
+    <button
+      class="mobile-menu-button"
+      type="button"
+      aria-label="Открыть меню"
+      aria-controls="main-navigation"
+      aria-expanded="false"
+      data-menu-button
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
 
   </div>
 </header>
 
-<main>
+<div
+  class="mobile-menu-overlay"
+  data-menu-overlay
+></div>
