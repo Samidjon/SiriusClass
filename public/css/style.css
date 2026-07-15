@@ -1914,8 +1914,7 @@ img {
   inset: 0;
   z-index: 1090;
   display: none;
-  background: rgba(18, 21, 27, 0.55);
-  backdrop-filter: blur(3px);
+  background: rgba(18, 21, 27, 0.25);
 }
 
 .mobile-menu-overlay.is-visible {
