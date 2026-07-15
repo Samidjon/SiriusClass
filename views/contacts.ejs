@@ -94,237 +94,46 @@
   </div>
 </section>
 
-<section class="contact-form-section">
-  <div class="container contact-form-section__container">
+<section class="contact-choice">
+  <div class="container">
 
-    <div class="contact-form-section__content">
-
-      <p class="section-label">
-        Отправить заявку
-      </p>
+    <div class="section-heading">
+      <p>Свяжитесь с нами</p>
 
       <h2>
-        Расскажите о вашем проекте
+        Выберите удобный способ связи
       </h2>
-
-      <p>
-        Укажите тип продукции, примерное количество,
-        размеры и желаемый срок изготовления. Чем больше
-        информации вы предоставите, тем точнее будет расчёт.
-      </p>
-
-      <div class="contact-messengers">
-
-        <a
-          href="https://web.telegram.org/@Idealcopycolor"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="contact-messenger contact-messenger--whatsapp"
-        >
-          Написать в Telegram @Idealcopycolor
-        </a>
-
-        <a
-          href="tel:+998 98 123 16 66"
-          class="contact-messenger"
-        >
-          Позвонить нам
-        </a>
-
-      </div>
-
     </div>
 
-    <div class="contact-form-wrapper">
+    <div class="contact-choice__grid">
 
-      <% if (success) { %>
-        <div class="contact-alert contact-alert--success">
-          <strong>Сообщение отправлено!</strong>
-
-          <p>
-            Спасибо за обращение. Мы свяжемся с вами
-            в ближайшее время.
-          </p>
-        </div>
-      <% } %>
-
-      <% if (error) { %>
-        <div class="contact-alert contact-alert--error">
-          <strong>Не удалось отправить форму</strong>
-          <p><%= error %></p>
-        </div>
-      <% } %>
-
-      <form
-        class="contact-form"
-        action="/contacts"
-        method="POST"
+      <a
+        href="https://t.me/Idealcopycolor"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="contact-choice__card"
       >
+        <span>Telegram</span>
 
-        <div class="contact-form__row">
+        <h3>Написать сообщение</h3>
 
-          <div class="contact-form__field">
-            <label for="contact-name">
-              Ваше имя *
-            </label>
+        <p>
+          Быстро обсудите заказ, стоимость и сроки.
+        </p>
+      </a>
 
-            <input
-              id="contact-name"
-              type="text"
-              name="name"
-              value="<%= formData.name || '' %>"
-              placeholder="Например, Никита"
-              maxlength="100"
-              required
-            >
-          </div>
+      <a
+        href="mailto:dj.stilman@mail.ru?subject=Запрос с сайта SiriusClass"
+        class="contact-choice__card"
+      >
+        <span>Email</span>
 
-          <div class="contact-form__field">
-            <label for="contact-phone">
-              Номер телефона
-            </label>
+        <h3>Отправить письмо</h3>
 
-            <input
-              id="contact-phone"
-              type="tel"
-              name="phone"
-              value="<%= formData.phone || '' %>"
-              placeholder="+998 99 123 45 67"
-              maxlength="30"
-            >
-          </div>
-
-        </div>
-
-        <div class="contact-form__field">
-          <label for="contact-email">
-            Email *
-          </label>
-
-          <input
-            id="contact-email"
-            type="email"
-            name="email"
-            value="<%= formData.email || '' %>"
-            placeholder="example@email.com"
-            maxlength="150"
-            required
-          >
-        </div>
-
-        <div class="contact-form__field">
-          <label for="contact-subject">
-            Тема обращения
-          </label>
-
-          <select
-            id="contact-subject"
-            name="subject"
-          >
-            <option value="">
-              Выберите тему
-            </option>
-
-            <option
-              value="Расчёт стоимости"
-              <%= formData.subject === "Расчёт стоимости"
-                ? "selected"
-                : "" %>
-            >
-              Расчёт стоимости
-            </option>
-
-            <option
-              value="Оформление заказа"
-              <%= formData.subject === "Оформление заказа"
-                ? "selected"
-                : "" %>
-            >
-              Оформление заказа
-            </option>
-
-            <option
-              value="Дизайн макета"
-              <%= formData.subject === "Дизайн макета"
-                ? "selected"
-                : "" %>
-            >
-              Дизайн макета
-            </option>
-
-            <option
-              value="Статус заказа"
-              <%= formData.subject === "Статус заказа"
-                ? "selected"
-                : "" %>
-            >
-              Статус существующего заказа
-            </option>
-
-            <option
-              value="Сотрудничество"
-              <%= formData.subject === "Сотрудничество"
-                ? "selected"
-                : "" %>
-            >
-              Сотрудничество
-            </option>
-
-            <option
-              value="Другое"
-              <%= formData.subject === "Другое"
-                ? "selected"
-                : "" %>
-            >
-              Другое
-            </option>
-          </select>
-        </div>
-
-        <div class="contact-form__field">
-          <div class="contact-form__label-row">
-
-            <label for="contact-message">
-              Сообщение *
-            </label>
-
-            <span data-message-counter>
-              0 / 1000
-            </span>
-
-          </div>
-
-          <textarea
-            id="contact-message"
-            name="message"
-            rows="7"
-            maxlength="1000"
-            placeholder="Напишите, что нужно изготовить, укажите количество, размер и другие пожелания..."
-            required
-          ><%= formData.message || '' %></textarea>
-        </div>
-
-        <label class="contact-form__agreement">
-          <input
-            type="checkbox"
-            name="agreement"
-            required
-          >
-
-          <span>
-            Я согласен на обработку информации,
-            указанной в форме.
-          </span>
-        </label>
-
-        <button
-          class="contact-form__submit"
-          type="submit"
-        >
-          Отправить сообщение
-        </button>
-
-      </form>
+        <p>
+          Отправьте описание заказа и прикрепите макет.
+        </p>
+      </a>
 
     </div>
 

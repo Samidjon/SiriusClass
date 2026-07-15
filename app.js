@@ -25,6 +25,12 @@ app.use((req, res) => {
   res.status(404).send("Страница не найдена");
 });
 
-app.listen(PORT, () => {
-  console.log(`Server started: http://localhost:${PORT}`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(
+      `Server started: http://localhost:${PORT}`
+    );
+  });
+}
+
+module.exports = app;
