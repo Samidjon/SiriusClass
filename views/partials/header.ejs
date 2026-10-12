@@ -6,7 +6,8 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta name="description" content="Полиграфические услуги, печать визиток, баннеров, буклетов и сувенирной продукции">
+  <meta name="description" content="Sirius Class — полиграфия, самоклейки, визитки, буклеты, упаковка и сувенирная продукция в Ташкенте">
+  <meta name="theme-color" content="#f5f3ee">
 
   <meta name="google-site-verification" content="_yGxB6esD8baiuQQxrstoHmhtx5wbWaYiDrAR5WYkP8" />
 
@@ -14,42 +15,67 @@
     <%= title %> | Sirius Class
   </title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
 
-  <header class="header">
+  <div class="site-preloader" id="site-preloader" aria-label="Загрузка сайта">
+    <div class="preloader-inner">
+      <a href="/" class="preloader-brand">SIRIUS<span>CLASS</span></a>
+      <div class="preloader-bottom">
+        <span data-i18n="preloaderCaption">ПЕЧАТАЕМ ВАШИ ИДЕИ</span>
+        <span id="preloader-progress">00%</span>
+      </div>
+      <div class="preloader-track"><div class="preloader-bar" id="preloader-bar"></div></div>
+    </div>
+  </div>
+
+  <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
+  <div class="cursor-ring" data-cursor-ring aria-hidden="true"></div>
+
+  <header class="header" data-site-header>
     <div class="container header__container">
+      <a href="/" class="logo" aria-label="Sirius Class — главная">Sirius<span>Class</span><i>.</i></a>
 
-      <a href="/" class="logo">
-        Sirius<span>Class</span>
-      </a>
-
-      <nav class="navigation" id="main-navigation" data-navigation>
-        <a href="/">Главная</a>
-        <a href="/services">Услуги</a>
-        <a href="/products">Продукция</a>
-        <a href="/portfolio">Портфолио</a>
-        <a href="/about">О компании</a>
-        <a href="/contacts">Контакты</a>
-
-        <a href="/contacts" class="navigation__order">
-          Рассчитать заказ
-        </a>
+      <nav class="navigation" id="main-navigation" data-navigation aria-label="Основная навигация">
+        <a href="/" data-i18n="navHome">Главная</a>
+        <a href="/services" data-i18n="navServices">Услуги</a>
+        <div class="nav-dropdown" data-nav-dropdown>
+          <a href="/products" class="nav-dropdown__trigger" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
+            <span data-i18n="navProducts">Продукция</span><span class="nav-chevron" aria-hidden="true">↘</span>
+          </a>
+          <div class="nav-dropdown__menu" aria-label="Категории продукции">
+            <div class="nav-dropdown__eyebrow" data-i18n="productCategories">Категории продукции</div>
+            <a href="/products?category=stickers" class="nav-dropdown__item"><span>01</span><span data-i18n="catStickers">Самоклейки</span><b>↗</b></a>
+            <a href="/products?category=business-cards" class="nav-dropdown__item"><span>02</span><span data-i18n="catCards">Визитки</span><b>↗</b></a>
+            <a href="/products?category=booklets" class="nav-dropdown__item"><span>03</span><span data-i18n="catBooklets">Буклеты</span><b>↗</b></a>
+            <a href="/products?category=paper-bags" class="nav-dropdown__item"><span>04</span><span data-i18n="catBags">Бумажные пакеты</span><b>↗</b></a>
+            <a href="/products?category=menus" class="nav-dropdown__item"><span>05</span><span data-i18n="catMenus">Меню</span><b>↗</b></a>
+            <a href="/products" class="nav-dropdown__all"><span data-i18n="allProducts">Вся продукция</span><span>→</span></a>
+          </div>
+        </div>
+        <a href="/portfolio" data-i18n="navPortfolio">Портфолио</a>
+        <a href="/about" data-i18n="navAbout">О компании</a>
+        <a href="/contacts" data-i18n="navContacts">Контакты</a>
+        <a href="/contacts" class="navigation__order" data-i18n="navQuote">Рассчитать заказ</a>
       </nav>
 
-      <a href="/order" class="header__button">
-        Оформить заказ
-      </a>
+      <div class="header__actions">
+        <div class="language-switch" role="group" aria-label="Выбор языка">
+          <button type="button" data-language="ru" class="is-active" aria-pressed="true">RU</button>
+          <span>/</span>
+          <button type="button" data-language="en" aria-pressed="false">EN</button>
+        </div>
+        <a href="/order" class="header__button"><span data-i18n="headerOrder">Оформить заказ</span><span aria-hidden="true">↗</span></a>
+      </div>
 
-      <button class="mobile-menu-button" type="button" aria-label="Открыть меню" aria-controls="main-navigation"
-        aria-expanded="false" data-menu-button>
-        <span></span>
-        <span></span>
-        <span></span>
+      <button class="mobile-menu-button" type="button" aria-label="Открыть меню" aria-controls="main-navigation" aria-expanded="false" data-menu-button>
+        <span></span><span></span><span></span>
       </button>
-
     </div>
   </header>
 
